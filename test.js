@@ -9,3 +9,16 @@ Using next keyword it starts execution.
 const gen = generatorFunc(10)
 console.log(gen.next().value)
 console.log(gen.next().value)
+
+2. Promise
+let myPromise =(x)=>  new Promise((res, rej) =>{
+if(x== 10){
+	res(x)
+}else{
+	rej('Invalid data')
+}
+})
+
+myPromise(100).then((data) =>{
+console.log(data)
+}).catch((err) => console.log(err))
