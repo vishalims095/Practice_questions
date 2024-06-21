@@ -22,3 +22,15 @@ if(x== 10){
 myPromise(100).then((data) =>{
 console.log(data)
 }).catch((err) => console.log(err))
+
+3. Clouser
+function getData(x){
+
+	function returnSquare(){
+  	return x*x
+  }
+  return returnSquare
+}
+let getData1 = getData(100)
+console.log( getData1())
+
