@@ -34,3 +34,21 @@ function getData(x){
 let getData1 = getData(100)
 console.log( getData1())
 
+4. Map function  Polyfills 
+Array.prototype.getMyMap = function(cb){
+	let temp = []
+  for(let i = 0 ;i<this.length;i++){
+  	temp.push(cb(this[i], i, this))
+    
+  }
+  return temp
+}
+
+//here this referes to parent array
+
+let arr = [2,1,3,1]
+
+arr.getMyMap(ele=>{
+	console.log(ele*2)
+})
+
