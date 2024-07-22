@@ -52,3 +52,23 @@ arr.getMyMap(ele=>{
 	console.log(ele*2)
 })
 
+
+5. Filter function Polyfills
+Array.prototype.getMyFilter = function(cb){
+	let temp = []
+  for(let i = 0 ;i<this.length;i++){
+  	if(cb(this[i], i, this)){
+    	temp.push(this[i])
+    }
+    
+  }
+  return temp
+}
+
+let arr = [2,1,3,1,10]
+
+arr.getMyFilter(ele=>{
+	if(ele <2){
+  	console.log(ele)
+  }
+})
