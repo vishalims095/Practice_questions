@@ -72,3 +72,26 @@ arr.getMyFilter(ele=>{
   	console.log(ele)
   }
 })
+
+6. call apply bind
+used for function borrowing
+let obj = {
+	name : "Vishal",
+  address : "patna",
+  getData : function(){
+  	console.log(this.name, this.address)
+  }
+}
+console.log(obj.getData())  // not good approach
+let obj = {
+	name : "Vishal",
+        address : "patna"
+}
+function getData(){
+  	console.log(this.name, this.address)
+  }
+  console.log(getData.call(obj))  // we can pass parameter as comma saperator  ex : getData.call(obj, "x", "y")
+  console.log(getData.apply(obj))  // we can pass parameter in array  ex : getData.call(obj, ["x", "y"])
+fot bind need to store function in a variable
+let data = getData.bind(obj)
+console.log(data())
