@@ -95,3 +95,21 @@ function getData(){
 fot bind need to store function in a variable
 let data = getData.bind(obj)
 console.log(data())
+
+
+7. Reduce Prototype
+let arr = [3,3,2,1,3]
+
+let data = arr.reduce((acc, ele) => { return acc + ele},10)
+console.log(data)
+
+Array.prototype.myReduce = function(cb, initialVal){
+	let acc = initialVal
+  for(let i = 0 ;i<this.length;i++){
+  	acc = acc ? cb(acc, this[i],i,this) : this[i]
+  }
+  return acc
+}
+
+let data1 = arr.myReduce((acc, ele) => { return acc + ele},0)
+console.log(data1)
