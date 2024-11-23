@@ -125,4 +125,21 @@ for(let i = 0 ;i<=num;i++){
   x=y 
   y=z
 }
+9. checkprime
+let num = 7
+let isPrime = true;
 
+if(num == 1){
+console.log("")
+}else{
+  for(let i=2;i<=num/2;i++){
+  console.log(i)
+     if (num % i == 0) {
+            isPrime = false;
+            break;
+        }else{
+           isPrime = true;
+        }
+  }
+}
+console.log(isPrime)
