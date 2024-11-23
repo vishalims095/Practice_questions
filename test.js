@@ -113,3 +113,16 @@ Array.prototype.myReduce = function(cb, initialVal){
 
 let data1 = arr.myReduce((acc, ele) => { return acc + ele},0)
 console.log(data1)
+
+8. Fabonnaci Series
+let num = 6
+let x=0
+let y=1
+let z = 0
+for(let i = 0 ;i<=num;i++){
+  console.log(x)
+  z= x+y
+  x=y 
+  y=z
+}
+
