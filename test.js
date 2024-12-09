@@ -143,3 +143,8 @@ console.log("")
   }
 }
 console.log(isPrime)
+
+10. Splice
+let arr = [1,3,3,1,13,4]
+arr.splice(2,2,"ram","shyam") // first parameter index number, 2nd parameter how many element want to remove, third parameter input character want to push on array
+console.log(arr)
