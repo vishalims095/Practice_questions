@@ -148,3 +148,32 @@ console.log(isPrime)
 let arr = [1,3,3,1,13,4]
 arr.splice(2,2,"ram","shyam") // first parameter index number, 2nd parameter how many element want to remove, third parameter input character want to push on array
 console.log(arr)
+
+11. function checkPrime(x){
+let isPrime = false
+	if(x<2){
+  	return false
+  }else{
+  	for(let i=2;i<Math.sqrt(x);i++){
+    console.log(Math.sqrt(x))
+    	if(x%i == 0){
+      isPrime = false
+      	return isPrime
+      }else{
+      	isPrime =  true
+        
+      }
+    }
+    return isPrime
+  }
+}
+
+12. function getFact(x){
+	if(x == 0){
+  	return 1
+  }else{
+  	return x * getFact(x-1)
+  }
+}
+
+console.log(getFact(5))
