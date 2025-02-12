@@ -1,0 +1,62 @@
+const stripe = require('stripe')('sk_live_xxx');
+
+async function createTransfer() {
+    try {
+        const transfer = await stripe.transfers.create({
+            amount: 1000, // Amount in cents
+            currency: 'usd',
+            destination: 'acct_xxxx', // Connected account ID
+            metadata: { transaction_id: 'txn_123456' }
+        });
+
+        console.log('Transfer Created:', transfer.id);
+    } catch (error) {
+        console.error('Error creating transfer:', error);
+    }
+}
+
+createTransfer();
+
+
+
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const stripe = require('stripe')('sk_live_xxx');
+
+const app = express();
+app.use(bodyParser.json());
+
+app.post('/webhook', async (req, res) => {
+    const event = req.body;
+
+    if (event.type === 'payment_intent.succeeded') {
+        const paymentIntent = event.data.object;
+        const transferId = paymentIntent.transfer_data?.destination; // Get transfer ID
+
+        if (transferId) {
+            try {
+                const transfer = await stripe.transfers.retrieve(transferId);
+                const transactionId = transfer.metadata.transaction_id;
+                console.log(`Transaction ID: ${transactionId}`);
+            } catch (error) {
+                console.error('Error retrieving transfer:', error);
+            }
+        }
+    }
+
+    res.sendStatus(200);
+});
+
+app.listen(3000, () => console.log('Webhook listening on port 3000'));
+
+
+How It Works
+✅ Create Transfer: The metadata field in stripe.transfers.create() stores the custom transaction ID.
+✅ Webhook Event: When a payment is successful (payment_intent.succeeded), the webhook retrieves the transfer_id.
+✅ Retrieve Transaction ID: The script fetches the metadata.transaction_id from the transfer.
+
+
+
+
+
