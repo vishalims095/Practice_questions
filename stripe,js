@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_live_xxx');
+loconst stripe = require('stripe')('sk_live_xxx');
 
 async function createTransfer() {
     try {
@@ -55,6 +55,35 @@ How It Works
 ✅ Create Transfer: The metadata field in stripe.transfers.create() stores the custom transaction ID.
 ✅ Webhook Event: When a payment is successful (payment_intent.succeeded), the webhook retrieves the transfer_id.
 ✅ Retrieve Transaction ID: The script fetches the metadata.transaction_id from the transfer.
+
+
+const stripe = require("stripe")("sk_live_YOUR_SECRET_KEY"); // Replace with your secret key
+
+async function getAccountIdFromBankId(bankAccountId) {
+    try {
+        // Fetch all accounts and find the one linked to the bank ID
+        const accounts = await stripe.accounts.list({ limit: 100 });
+
+        for (const account of accounts.data) {
+            const externalAccounts = await stripe.accounts.listExternalAccounts(account.id, { object: "bank_account" });
+
+            for (const bank of externalAccounts.data) {
+                if (bank.id === bankAccountId) {
+                    console.log("Account ID:", account.id);
+                    return account.id;
+                }
+            }
+        }
+
+        console.log("Account ID not found for Bank ID:", bankAccountId);
+        return null;
+    } catch (error) {
+        console.error("Error retrieving account ID:", error);
+    }
+}
+
+// Example usage:
+getAccountIdFromBankId("ba_xxxx");
 
 
 
