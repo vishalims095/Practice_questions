@@ -81,6 +81,29 @@ async function getAccountIdFromBankId(bankAccountId) {
         console.error("Error retrieving account ID:", error);
     }
 }
+// transfer
+async function createPaymentIntent(params) {
+   const paymentIntent = await stripe.paymentIntents.create({
+      amount: 5000, // $50.00
+      currency: 'aud',
+      payment_method: 'pm_card_visa', // Use test payment method or real saved one
+      //confirm: true, // Confirm the payment immediately
+      application_fee_amount: 1000, // $10 platform fee
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never',
+        },
+      transfer_data: {
+        destination: 'acct_1Qkj9CPjLXSIEhGG', // Connected account ID
+      },
+    });
+
+    console.log('✅ PaymentIntent succeeded:', paymentIntent.id);
+    const confirmedIntent = await stripe.paymentIntents.confirm(
+    paymentIntent.id,
+    { payment_method: 'pm_card_visa' }
+    );
+}
 
 // Example usage:
 getAccountIdFromBankId("ba_xxxx");
